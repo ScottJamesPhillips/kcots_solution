@@ -40,7 +40,8 @@ namespace Kcots.Controls.Tabs
             {
                  y = await DataAccess.GetStocks();
             });
-            dgStockList.ItemsSource = y;
+            //dgStockList.ItemsSource = y;
+            DataContext = y;
         }
     }
 }

@@ -89,6 +89,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Controls\HomeTab\StockRowItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\Tabs\HomeTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -102,6 +106,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Configuration\Settings.cs" />
+    <Compile Include="Controls\HomeTab\StockRowItem.xaml.cs">
+      <DependentUpon>StockRowItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Tabs\HomeTab.xaml.cs">
       <DependentUpon>HomeTab.xaml</DependentUpon>
     </Compile>
