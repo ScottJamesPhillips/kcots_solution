@@ -33,6 +33,7 @@ namespace Kcots.Data
                 CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); ;
                 using (WebClient client = new WebClient())
                 {
+                    //Default timeout 100 seconds (appaz)?
                     using (MemoryStream stream = new MemoryStream(await client.DownloadDataTaskAsync(queryUri)))
                     {
                         stream.Position = 0;
@@ -63,7 +64,7 @@ namespace Kcots.Data
             }
         }
 
-        public static List<StocksMarketData> GetMarketData(string symbol)
+        public static async Task<List<StocksMarketData>> GetMarketData(string symbol)
         {
             try
             {

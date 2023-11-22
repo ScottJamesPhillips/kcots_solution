@@ -34,8 +34,13 @@ namespace Kcots.Controls.Tabs
         }
         public async void  Init()
         {
-            //stocks = 
-                DataAccess.GetStocks();
+            List<Stocks> y = new List<Stocks>();
+            //Fetching stocks thread
+            await Task.Run(async () =>
+            {
+                 y = await DataAccess.GetStocks();
+            });
+            dgStockList.ItemsSource = y;
         }
     }
 }

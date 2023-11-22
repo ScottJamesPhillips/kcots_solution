@@ -8,6 +8,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TextBlock>Heel</TextBlock>
+        <DataGrid x:Name="dgStockList">
+            
+        </DataGrid>
     </Grid>
 </UserControl>
