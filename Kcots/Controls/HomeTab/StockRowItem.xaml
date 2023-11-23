@@ -14,10 +14,22 @@
                HorizontalAlignment="Left"  
                VerticalAlignment="Top" 
                 Width="100"
-                Height="30">
+                Height="30"
+                MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave"
+                >
             <!-- Your StockInfo UI elements go here -->
             <TextBlock Text="{Binding Name}" />
             <!-- Add more elements as needed -->
+
+            <!--<Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Border  Background="Red" Height="12" VerticalAlignment="Top" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave"></Border>
+            </Grid>-->
+
+
         </Border>
     </Grid>
 </UserControl>
