@@ -43,11 +43,11 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="1" Text="{Binding Exchange}"></TextBlock>
-                <TextBlock Grid.Row="2" Text="{Binding AssetType}"></TextBlock>
-                <TextBlock Grid.Row="3" Text="{Binding IpoDate}"></TextBlock>
-                <TextBlock Grid.Row="4" Text="{Binding DelistingDate}"></TextBlock>
-                <TextBlock Grid.Row="5" Text="{Binding Status}"></TextBlock>
+                <TextBlock Grid.Row="0" Text="{Binding Exchange}"></TextBlock>
+                <TextBlock Grid.Row="1" Text="{Binding AssetType}"></TextBlock>
+                <TextBlock Grid.Row="2" Text="{Binding IpoDate}"></TextBlock>
+                <TextBlock Grid.Row="3" Text="{Binding DelistingDate}"></TextBlock>
+                <TextBlock Grid.Row="4" Text="{Binding Status}"></TextBlock>
             </Grid>
         </Grid>
         <!-- Add more elements as needed -->
