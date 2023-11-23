@@ -18,7 +18,7 @@
                Background="Red"  
                HorizontalAlignment="Left"  
                VerticalAlignment="Top" 
-                Width="100"
+                Width="150"
                 Height="30"
                 MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
             <!-- Your StockInfo UI elements go here -->
@@ -27,18 +27,27 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Text="{Binding Name}" />
+            <TextBlock>
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} ({1})">
+                        <Binding Path="Name" />
+                        <Binding Path="Symbol" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
             <Grid Grid.Row="1" x:Name="gridStockInfo" Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0">These are tests</TextBlock>
-                <TextBlock Grid.Row="1">These are tests row 1</TextBlock>
-                <TextBlock Grid.Row="2">These are tests row 2</TextBlock>
-                <TextBlock Grid.Row="3">These are tests row 3</TextBlock>
+                <TextBlock Grid.Row="1" Text="{Binding Exchange}"></TextBlock>
+                <TextBlock Grid.Row="2" Text="{Binding AssetType}"></TextBlock>
+                <TextBlock Grid.Row="3" Text="{Binding IpoDate}"></TextBlock>
+                <TextBlock Grid.Row="4" Text="{Binding DelistingDate}"></TextBlock>
+                <TextBlock Grid.Row="5" Text="{Binding Status}"></TextBlock>
             </Grid>
         </Grid>
         <!-- Add more elements as needed -->

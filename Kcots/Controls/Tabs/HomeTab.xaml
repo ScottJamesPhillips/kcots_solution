@@ -21,16 +21,17 @@
             --><!--<TextBlock>Hello there</TextBlock>--><!--
         </ListBox>-->
 
-
-        <ItemsControl ItemsSource="{Binding }">
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <!--<TextBlock Text="{Binding Name}" Margin="5"/>-->
-                    <stockrow:StockRowItem/>
-                    <!-- Customize this template as needed -->
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding }">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!--<TextBlock Text="{Binding Name}" Margin="5"/>-->
+                        <stockrow:StockRowItem/>
+                        <!-- Customize this template as needed -->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
 
 
 
