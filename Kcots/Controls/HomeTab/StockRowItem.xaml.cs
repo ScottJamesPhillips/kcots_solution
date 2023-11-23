@@ -36,6 +36,7 @@ namespace Kcots.Controls.HomeTab
             db.AutoReverse = false;
             db.RepeatBehavior = new RepeatBehavior(1);
             sp.BeginAnimation(StackPanel.HeightProperty, db);
+            gridStockInfo.Visibility = Visibility.Visible;
         }
 
         private void StackPanel_MouseLeave(object sender, MouseEventArgs e)
@@ -47,6 +48,7 @@ namespace Kcots.Controls.HomeTab
             db.Duration = TimeSpan.FromSeconds(0.5);
             db.AutoReverse = false;
             db.RepeatBehavior = new RepeatBehavior(1);
+            gridStockInfo.Visibility = Visibility.Hidden;
             sp.BeginAnimation(StackPanel.HeightProperty, db);
         }
     }

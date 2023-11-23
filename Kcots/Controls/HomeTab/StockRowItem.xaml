@@ -6,7 +6,12 @@
              xmlns:local="clr-namespace:Kcots.Controls.HomeTab"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>-->
         <Border BorderThickness="5"  
                BorderBrush="Green"  
                CornerRadius="10"  
@@ -15,21 +20,28 @@
                VerticalAlignment="Top" 
                 Width="100"
                 Height="30"
-                MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave"
-                >
+                MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
             <!-- Your StockInfo UI elements go here -->
+        <Grid Height="150">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <TextBlock Text="{Binding Name}" />
-            <!-- Add more elements as needed -->
-
-            <!--<Grid>
+            <Grid Grid.Row="1" x:Name="gridStockInfo" Visibility="Collapsed">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="2*"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Border  Background="Red" Height="12" VerticalAlignment="Top" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave"></Border>
-            </Grid>-->
-
-
+                <TextBlock Grid.Row="0">These are tests</TextBlock>
+                <TextBlock Grid.Row="1">These are tests row 1</TextBlock>
+                <TextBlock Grid.Row="2">These are tests row 2</TextBlock>
+                <TextBlock Grid.Row="3">These are tests row 3</TextBlock>
+            </Grid>
+        </Grid>
+        <!-- Add more elements as needed -->
         </Border>
-    </Grid>
+    <!--</Grid>-->
 </UserControl>
