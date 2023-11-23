@@ -24,7 +24,7 @@ namespace Kcots.Data
                 List<Stocks> returnList = new List<Stocks>();
                 // replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
                 //string QUERY_URL = "https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=4X0XTW8QRBNKICTL";
-                string QUERY_URL = "https://www.alphavantage.co/query?function=LISTING_STATUS&date=2022-07-10&state=delisted&apikey=4X0XTW8QRBNKICTL";
+                string QUERY_URL = "https://www.alphavantage.co/query?function=LISTING_STATUS&date=2010-01-01&state=delisted&limit=10&apikey=4X0XTW8QRBNKICTL";
 
                 Uri queryUri = new Uri(QUERY_URL);
 
