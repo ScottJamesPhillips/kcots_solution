@@ -6,22 +6,12 @@
              xmlns:local="clr-namespace:Kcots.Controls.HomeTab"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>-->
-        <Border BorderThickness="5"  
-               BorderBrush="Green"  
+    <Border BorderThickness="5"  
                CornerRadius="10"  
-               Background="Red"  
                HorizontalAlignment="Left"  
                VerticalAlignment="Top" 
-                Width="150"
                 Height="30"
-                MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
-            <!-- Your StockInfo UI elements go here -->
+              MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">
         <Grid Height="150">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -50,7 +40,5 @@
                 <TextBlock Grid.Row="4" Text="{Binding Status}"></TextBlock>
             </Grid>
         </Grid>
-        <!-- Add more elements as needed -->
-        </Border>
-    <!--</Grid>-->
+    </Border>
 </UserControl>

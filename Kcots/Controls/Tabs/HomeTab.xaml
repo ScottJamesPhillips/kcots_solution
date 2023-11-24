@@ -21,17 +21,52 @@
             --><!--<TextBlock>Hello there</TextBlock>--><!--
         </ListBox>-->
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <!--<ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding }">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <!--<TextBlock Text="{Binding Name}" Margin="5"/>-->
+                        --><!--<TextBlock Text="{Binding Name}" Margin="5"/>--><!--
                         <stockrow:StockRowItem/>
-                        <!-- Customize this template as needed -->
+                        --><!-- Customize this template as needed --><!--
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </ScrollViewer>
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="txtBlock_CurrentStock" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">Hello</TextBlock>
+        </Grid>-->
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ListBox ItemsSource="{Binding }" SelectionChanged="ItemsControl_SelectionChanged">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <stockrow:StockRowItem Content="{Binding Name}" Margin="5"/>
+                        <!-- Customize this template as needed -->
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="txtBlock_CurrentStock" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Text>
+                    <Binding Path="SelectedStockItem.Name" />
+                </TextBlock.Text>
+            </TextBlock>
+        </Grid>
 
 
 

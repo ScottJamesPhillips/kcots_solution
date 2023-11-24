@@ -22,8 +22,6 @@ namespace Kcots.Models
 
         public Stocks(string[] result)
         {
-            //DateTime x;
-            //string symbol, string exchange, string assetType, DateTime ipoDate, DateTime delistingDate, string status
             Symbol = result[0];
             Name = result[1];
             Exchange = result[2];

@@ -31,7 +31,7 @@ namespace Kcots.Controls.HomeTab
             Border sp = sender as Border;
             DoubleAnimation db = new DoubleAnimation();
             //db.From = 12;
-            db.To = 150;
+            db.To = 120;
             db.Duration = TimeSpan.FromSeconds(0.5);
             db.AutoReverse = false;
             db.RepeatBehavior = new RepeatBehavior(1);

@@ -28,9 +28,6 @@ namespace Kcots.Data
 
                 Uri queryUri = new Uri(QUERY_URL);
 
-                // print the output
-                // This example uses the fine nuget package CsvHelper (https://www.nuget.org/packages/CsvHelper/)
-
                 CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); ;
                 using (WebClient client = new WebClient())
                 {
@@ -45,13 +42,9 @@ namespace Kcots.Data
                             {
                                 csv.Read();
                                 csv.ReadHeader();
-                                //Populate a List of Firms
-                                //Console.WriteLine(string.Join("\t", csv.HeaderRecord));
                                 while (csv.Read())
                                 {
                                     returnList.Add(new Stocks(csv.Parser.Record));
-                                    //    Console.WriteLine(string.Join("\t", csv.Parser.Record));
-
                                 }
                             }
                         }

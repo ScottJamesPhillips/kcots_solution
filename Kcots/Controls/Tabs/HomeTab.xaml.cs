@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -26,7 +27,6 @@ namespace Kcots.Controls.Tabs
     /// </summary>
     public partial class HomeTab : UserControl
     {
-        List<Stocks> stocks = new List<Stocks>();
         public HomeTab()
         {
             InitializeComponent();
@@ -34,14 +34,26 @@ namespace Kcots.Controls.Tabs
         }
         public async void  Init()
         {
-            List<Stocks> y = new List<Stocks>();
-            //Fetching stocks thread
-            await Task.Run(async () =>
+            try
             {
-                 y = await DataAccess.GetStocks();
-            });
-            //dgStockList.ItemsSource = y;
-            DataContext = y;
+                //Fetching stocks thread
+                await Task.Run(async () =>
+                {
+                    DataContext = await DataAccess.GetStocks();
+                });
+            }catch(Exception ex)
+            {
+
+            }
         }
+
+
+        private void ItemsControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Handle selection change
+            // You can access the selected item and update the TextBlock accordingly
+            txtBlock_CurrentStock.Text = (e.AddedItems[0] as Stocks)?.Name;
+        }
+
     }
 }
