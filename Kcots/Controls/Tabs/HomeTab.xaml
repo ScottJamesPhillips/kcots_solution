@@ -61,11 +61,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="txtBlock_CurrentStock" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock.Text>
-                    <Binding Path="SelectedStockItem.Name" />
-                </TextBlock.Text>
-            </TextBlock>
+            <stockrow:StockInfoItem x:Name="stocksInfoItem" />
         </Grid>
 
 

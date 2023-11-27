@@ -44,7 +44,7 @@ namespace Kcots.Controls.Tabs
                 {
                     stocks = await DataAccess.GetStocks();
                 });
-                DataContext = y;
+                DataContext = stocks;
             }catch(Exception ex)
             {
                 Logging.WriteLog(ex.Message, Logging.LogType.error);
@@ -56,7 +56,8 @@ namespace Kcots.Controls.Tabs
         {
             // Handle selection change
             // You can access the selected item and update the TextBlock accordingly
-            txtBlock_CurrentStock.Text = (e.AddedItems[0] as Stocks)?.Name;
+            stocksInfoItem.DataContext = (e.AddedItems[0] as Stocks);
+
         }
 
     }
