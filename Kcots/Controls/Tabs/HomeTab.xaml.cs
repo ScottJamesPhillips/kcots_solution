@@ -27,6 +27,7 @@ namespace Kcots.Controls.Tabs
     /// </summary>
     public partial class HomeTab : UserControl
     {
+        List<Stocks> y = new List<Stocks>();
         public HomeTab()
         {
             InitializeComponent();
@@ -39,8 +40,9 @@ namespace Kcots.Controls.Tabs
                 //Fetching stocks thread
                 await Task.Run(async () =>
                 {
-                    DataContext = await DataAccess.GetStocks();
+                    y = await DataAccess.GetStocks();
                 });
+                DataContext = y;
             }catch(Exception ex)
             {
 

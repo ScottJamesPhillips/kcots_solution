@@ -1,5 +1,7 @@
 ﻿using CsvHelper;
+using Kcots.Configuration;
 using Kcots.Models;
+using Microsoft.Extensions.Logging;
 using ServiceStack;
 using System;
 using System.Collections.Generic;
@@ -21,6 +23,7 @@ namespace Kcots.Data
         {
             try
             {
+                Logging.WriteLog("Getting Stocks List", Logging.LogType.info);
                 List<Stocks> returnList = new List<Stocks>();
                 // replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
                 //string QUERY_URL = "https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=4X0XTW8QRBNKICTL";
@@ -54,6 +57,7 @@ namespace Kcots.Data
             }
             catch (Exception ex)
             {
+                Logging.WriteLog(ex.Message, Logging.LogType.error);
                 return new List<Stocks>();
             }
         }

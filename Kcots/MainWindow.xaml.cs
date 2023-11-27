@@ -1,4 +1,6 @@
-﻿using Kcots.Models;
+﻿using Kcots.Configuration;
+using Kcots.Models;
+using Microsoft.Extensions.Logging;
 using ServiceStack;
 using ServiceStack.Text;
 using System;
@@ -25,19 +27,29 @@ namespace Kcots
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private readonly ILogger<MainWindow> logger;
+
         public MainWindow()
         {
+            //logger = loggerFactory.CreateLogger<MainWindow>();
+
             InitializeComponent();
         }
+        //public MainWindow()
+        //{            //InitSettings();
+        //    InitializeComponent();
 
-        private void InitSettings()
-        {
-            try
-            {
-                //Configuration.Settings.Load();
-            }
-            catch (Exception) { }
-        }
+        //}
+
+        //private void InitSettings()
+        //{
+        //    try
+        //    {
+        //        Configuration.Logging.InitializeLogger();
+        //    }
+        //    catch (Exception) { }
+        //}
 
         private void HideAll()
         {
@@ -45,9 +57,8 @@ namespace Kcots
         }
 
 
-        
 
-        
+
 
 
 

@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Kcots.Configuration;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +16,19 @@ namespace Kcots
     /// </summary>
     public partial class App : Application
     {
+        //private readonly MainWindow mainWindow;
+
+        public App()
+        {
+            Logging.InitializeLogger();
+
+            //this.mainWindow = mainWindow;
+        }
+
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    //mainWindow.Show();
+        //    base.OnStartup(e);
+        //}
     }
 }
