@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CsvHelper;
+using Kcots.Configuration;
 using Kcots.Data;
 using Kcots.Models;
 
@@ -37,6 +38,7 @@ namespace Kcots.Controls.Tabs
         {
             try
             {
+                Logging.WriteLog("Initialising Program", Logging.LogType.info);
                 //Fetching stocks thread
                 await Task.Run(async () =>
                 {
@@ -45,7 +47,7 @@ namespace Kcots.Controls.Tabs
                 DataContext = y;
             }catch(Exception ex)
             {
-
+                Logging.WriteLog(ex.Message, Logging.LogType.error);
             }
         }
 

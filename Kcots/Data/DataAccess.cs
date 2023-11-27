@@ -66,6 +66,7 @@ namespace Kcots.Data
         {
             try
             {
+                Logging.WriteLog("Getting Stock Info", Logging.LogType.info);
                 List<StocksMarketData> monthlyPrices = $"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={avApiKey}&datatype=csv"
                                 .GetStringFromUrl().FromCsv<List<StocksMarketData>>();
 
@@ -73,6 +74,7 @@ namespace Kcots.Data
             }
             catch (Exception ex)
             {
+                Logging.WriteLog(ex.Message, Logging.LogType.error);
                 return null;
             }
         }

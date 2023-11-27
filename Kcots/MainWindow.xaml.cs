@@ -32,24 +32,8 @@ namespace Kcots
 
         public MainWindow()
         {
-            //logger = loggerFactory.CreateLogger<MainWindow>();
-
             InitializeComponent();
         }
-        //public MainWindow()
-        //{            //InitSettings();
-        //    InitializeComponent();
-
-        //}
-
-        //private void InitSettings()
-        //{
-        //    try
-        //    {
-        //        Configuration.Logging.InitializeLogger();
-        //    }
-        //    catch (Exception) { }
-        //}
 
         private void HideAll()
         {
