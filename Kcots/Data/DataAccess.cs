@@ -60,7 +60,7 @@ namespace Kcots.Data
             {
                 try
                 {
-                    List<StocksMarketData> monthlyPrices = $"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={avApiKey}&datatype=csv"
+                    List<StocksMarketData> monthlyPrices = $"https://finnhub.io/api/v1/quote?symbol={symbol}&token=cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0"
                                     .GetStringFromUrl().FromCsv<List<StocksMarketData>>();
 
                     // Process the data or store it as needed
