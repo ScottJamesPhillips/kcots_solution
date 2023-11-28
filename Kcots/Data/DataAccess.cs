@@ -54,32 +54,19 @@ namespace Kcots.Data
             }
         }
 
-        public static async Task<StocksMarketData> GetMarketDataPeriodically(string symbol, TimeSpan pollingInterval, CancellationToken cancellationToken)
+        public static async Task<List<StocksMarketData>> GetMarketDataPeriodically(string symbol, TimeSpan pollingInterval, CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    StocksMarketData returnList = new StocksMarketData();
-                    using (HttpClient client = new HttpClient())
-                    {
-                        string url = $"https://finnhub.io/api/v1/quote?symbol={symbol}&token=cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0";
-                        HttpResponseMessage response = await client.GetAsync(url);
-                        response.EnsureSuccessStatusCode();
-
-                        if (response != null)
-                        {
-                            var jsonString = await response.Content.ReadAsStringAsync();
-                            returnList = JsonConvert.DeserializeObject<StocksMarketData>(jsonString);
-                        }
-                    }
-                    //List<StocksMarketData> monthlyPrices = $"https://finnhub.io/api/v1/quote?symbol={symbol}&token=cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0"
-                    //                .GetStringFromUrl().FromCsv<List<StocksMarketData>>();
+                    List<StocksMarketData> monthlyPrices = $"https://finnhub.io/api/v1/quote?symbol={symbol}&token=cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0"
+                                    .GetStringFromUrl().FromCsv<List<StocksMarketData>>();
 
                     // Process the data or store it as needed
 
                     // Sleep for the specified interval
-                    //await Task.Delay(pollingInterval, cancellationToken);
+                    await Task.Delay(pollingInterval, cancellationToken);
                 }
                 catch (Exception ex)
                 {
