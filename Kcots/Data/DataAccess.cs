@@ -2,6 +2,8 @@
 using Kcots.Configuration;
 using Kcots.Models;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using ServiceStack;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Kcots.Data
@@ -17,7 +21,9 @@ namespace Kcots.Data
     class DataAccess
     {
         private static string avApiKey = "4X0XTW8QRBNKICTL";
+        private static string fhApiKey = "cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0";
 
+        private static readonly HttpClient client = new HttpClient();
 
         public static async Task<List<Stocks>> GetStocks()
         {
@@ -25,34 +31,20 @@ namespace Kcots.Data
             {
                 Logging.WriteLog("Getting Stocks List", Logging.LogType.info);
                 List<Stocks> returnList = new List<Stocks>();
-                // replace the "demo" apikey below with your own key from https://www.alphavantage.co/support/#api-key
-                //string QUERY_URL = "https://www.alphavantage.co/query?function=LISTING_STATUS&apikey=4X0XTW8QRBNKICTL";
-                string QUERY_URL = "https://www.alphavantage.co/query?function=LISTING_STATUS&date=2010-01-01&state=delisted&limit=10&apikey=4X0XTW8QRBNKICTL";
 
-                Uri queryUri = new Uri(QUERY_URL);
-
-                CultureInfo culture = CultureInfo.CreateSpecificCulture("en-US"); ;
-                using (WebClient client = new WebClient())
+                using (HttpClient client = new HttpClient())
                 {
-                    //Default timeout 100 seconds (appaz)?
-                    using (MemoryStream stream = new MemoryStream(await client.DownloadDataTaskAsync(queryUri)))
-                    {
-                        stream.Position = 0;
+                    string url = "https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=BATS&token=cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0";
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
 
-                        using (StreamReader reader = new StreamReader(stream))
-                        {
-                            using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                            {
-                                csv.Read();
-                                csv.ReadHeader();
-                                while (csv.Read())
-                                {
-                                    returnList.Add(new Stocks(csv.Parser.Record));
-                                }
-                            }
-                        }
+                    if (response != null)
+                    {
+                        var jsonString = await response.Content.ReadAsStringAsync();
+                        returnList = JsonConvert.DeserializeObject<List<Stocks>>(jsonString);
                     }
                 }
+
                 return returnList;
             }
             catch (Exception ex)
@@ -62,21 +54,29 @@ namespace Kcots.Data
             }
         }
 
-        public static async Task<List<StocksMarketData>> GetMarketData(string symbol)
+        public static async Task<List<StocksMarketData>> GetMarketDataPeriodically(string symbol, TimeSpan pollingInterval, CancellationToken cancellationToken)
         {
-            try
+            while (!cancellationToken.IsCancellationRequested)
             {
-                Logging.WriteLog("Getting Stock Info", Logging.LogType.info);
-                List<StocksMarketData> monthlyPrices = $"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={avApiKey}&datatype=csv"
-                                .GetStringFromUrl().FromCsv<List<StocksMarketData>>();
+                try
+                {
+                    List<StocksMarketData> monthlyPrices = $"https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol={symbol}&apikey={avApiKey}&datatype=csv"
+                                    .GetStringFromUrl().FromCsv<List<StocksMarketData>>();
 
-                return monthlyPrices;
+                    // Process the data or store it as needed
+
+                    // Sleep for the specified interval
+                    await Task.Delay(pollingInterval, cancellationToken);
+                }
+                catch (Exception ex)
+                {
+                    Logging.WriteLog(ex.Message, Logging.LogType.error);
+                    // Handle the error as needed
+                }
             }
-            catch (Exception ex)
-            {
-                Logging.WriteLog(ex.Message, Logging.LogType.error);
-                return null;
-            }
+
+            return null; // Or some default value
         }
+
     }
 }

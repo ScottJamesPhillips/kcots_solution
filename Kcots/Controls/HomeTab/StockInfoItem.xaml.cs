@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +27,6 @@ namespace Kcots.Controls.HomeTab
         public StockInfoItem()
         {
             InitializeComponent();
-            //Init();
         }
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -34,13 +34,31 @@ namespace Kcots.Controls.HomeTab
             // Execute your function or code here when DataContext changes
             // The new DataContext is accessible through e.NewValue
             selectedStock = e.NewValue as Stocks;
-            YourFunctionToExecute();
+            if (selectedStock != null)
+                GetCurrentStockInfo();
         }
 
-        private void YourFunctionToExecute()
+        private async void GetCurrentStockInfo()
         {
-            // Implement your logic here
-            Console.WriteLine("DataContext changed! Your code here.");
+            try
+            {
+                // Implement your logic here
+                Logging.WriteLog($"Fetching stock info for {selectedStock.Symbol}", Logging.LogType.info);
+                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+                //Task<List<StocksMarketData>> pollingTask = Data.DataAccess.GetMarketDataPeriodically(selectedStock.Symbol, TimeSpan.FromMinutes(1), cancellationTokenSource.Token);
+                // To stop polling after a certain time or when needed
+                // cancellationTokenSource.Cancel();
+
+                // Wait for the task to complete
+                //List<StocksMarketData> result = await pollingTask;
+
+            }
+            catch (Exception ex)
+            {
+                Logging.WriteLog(ex.Message, Logging.LogType.error);
+                throw;
+            }
+
         }
     }
 }

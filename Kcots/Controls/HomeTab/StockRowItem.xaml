@@ -33,11 +33,11 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Exchange}"></TextBlock>
-                <TextBlock Grid.Row="1" Text="{Binding AssetType}"></TextBlock>
-                <TextBlock Grid.Row="2" Text="{Binding IpoDate}"></TextBlock>
-                <TextBlock Grid.Row="3" Text="{Binding DelistingDate}"></TextBlock>
-                <TextBlock Grid.Row="4" Text="{Binding Status}"></TextBlock>
+                <TextBlock Grid.Row="0" Text="{Binding FinancialInstrumentGlobalIdentifier}"></TextBlock>
+                <TextBlock Grid.Row="1" Text="{Binding MarketIdentifierCode}"></TextBlock>
+                <TextBlock Grid.Row="2" Text="{Binding Type}"></TextBlock>
+                <TextBlock Grid.Row="3" Text="{Binding DisplaySymbol}"></TextBlock>
+                <TextBlock Grid.Row="4" Text="{Binding Currency}"></TextBlock>
             </Grid>
         </Grid>
     </Border>
