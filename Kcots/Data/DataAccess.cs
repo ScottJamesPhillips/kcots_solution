@@ -54,7 +54,7 @@ namespace Kcots.Data
             }
         }
 
-        public static async Task<List<StocksMarketData>> GetMarketDataPeriodically(string symbol, TimeSpan pollingInterval, CancellationToken cancellationToken)
+        public static async Task<StocksMarketData> GetMarketDataPeriodically(string symbol, TimeSpan pollingInterval, CancellationToken cancellationToken)
         {
             while (!cancellationToken.IsCancellationRequested)
             {
