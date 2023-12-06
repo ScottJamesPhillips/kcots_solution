@@ -47,7 +47,7 @@
             <ListBox ItemsSource="{Binding }" SelectionChanged="ItemsControl_SelectionChanged">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <stockrow:StockRowItem Content="{Binding description}" Margin="5"/>
+                        <stockrow:StockRowItem Content="{Binding Name}" Margin="5"/>
                         <!-- Customize this template as needed -->
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

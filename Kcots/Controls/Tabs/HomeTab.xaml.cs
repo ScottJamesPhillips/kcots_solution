@@ -40,9 +40,9 @@ namespace Kcots.Controls.Tabs
             {
                 Logging.WriteLog("Initialising Program", Logging.LogType.info);
                 //Fetching stocks thread
-                await Task.Run(async () =>
+                 await Task.Run(async() =>
                 {
-                    stocks = await DataAccess.GetStocks();
+                    stocks =  await DataAccess.GetStocks();
                 });
                 DataContext = stocks;
             }catch(Exception ex)
