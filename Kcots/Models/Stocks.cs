@@ -11,25 +11,33 @@ using System.Threading.Tasks;
 
 namespace Kcots.Models
 {
+    class ApiResponse
+    {
+        [JsonProperty("data")]
+        public List<Stocks> Data { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+    }
     class Stocks
     {
+        [JsonProperty("symbol")]
+        public string Symbol { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-        [JsonProperty("description")]
-        public string Name { get; set; }
+        [JsonProperty("exchange")]
+        public string Exchange { get; set; }
 
-        [JsonProperty("displaySymbol")]
-        public string DisplaySymbol { get; set; }
-
-        [JsonProperty("figi")]
-        public string FinancialInstrumentGlobalIdentifier { get; set; }
-
-        [JsonProperty("mic")]
+        [JsonProperty("mic_code")]
         public string MarketIdentifierCode { get; set; }
 
-        [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        [JsonProperty("country")]
+        public string Country { get; set; }
 
         [JsonProperty("type")]
         public string Type { get; set; }

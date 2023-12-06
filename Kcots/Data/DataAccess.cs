@@ -32,17 +32,19 @@ namespace Kcots.Data
                 Logging.WriteLog("Getting Stocks List", Logging.LogType.info);
                 List<Stocks> returnList = new List<Stocks>();
 
-                using (HttpClient client = new HttpClient())
+                var client = new HttpClient();
+                var request = new HttpRequestMessage
                 {
-                    string url = "https://finnhub.io/api/v1/stock/symbol?exchange=US&mic=BATS&token=cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0";
-                    HttpResponseMessage response = await client.GetAsync(url);
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NASDAQ"),
+                    //RequestUri = new Uri("https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&type=stock"),    
+                };
+                using (var response = await client.SendAsync(request))
+                {
                     response.EnsureSuccessStatusCode();
-
-                    if (response != null)
-                    {
-                        var jsonString = await response.Content.ReadAsStringAsync();
-                        returnList = JsonConvert.DeserializeObject<List<Stocks>>(jsonString);
-                    }
+                    var responseJsonString = await response.Content.ReadAsStringAsync();
+                    var responseJson = JsonConvert.DeserializeObject<ApiResponse>(responseJsonString);
+                    returnList = responseJson.Data;
                 }
 
                 return returnList;
