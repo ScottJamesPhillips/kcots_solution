@@ -36,14 +36,15 @@ namespace Kcots.Data
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NASDAQ"),
+                    RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NYSE&mic_code=ARCX"),
+                    //RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NASDAQ"),
                     //RequestUri = new Uri("https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&type=stock"),    
                 };
                 using (var response = await client.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
                     var responseJsonString = await response.Content.ReadAsStringAsync();
-                    var responseJson = JsonConvert.DeserializeObject<ApiResponse>(responseJsonString);
+                    var responseJson = JsonConvert.DeserializeObject<StocksApiResponse>(responseJsonString);
                     returnList = responseJson.Data;
                 }
 
@@ -56,28 +57,32 @@ namespace Kcots.Data
             }
         }
 
-        public static async Task<StocksMarketData> GetMarketDataPeriodically(string symbol, TimeSpan pollingInterval, CancellationToken cancellationToken)
+        public static async Task<List<StocksMarketData>> GetMarketDataForStock(string symbol)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            List<StocksMarketData> returnList = new List<StocksMarketData>();
+            try
             {
-                try
+                var client = new HttpClient();
+                var request = new HttpRequestMessage
                 {
-                    List<StocksMarketData> monthlyPrices = $"https://finnhub.io/api/v1/quote?symbol={symbol}&token=cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0"
-                                    .GetStringFromUrl().FromCsv<List<StocksMarketData>>();
-
-                    // Process the data or store it as needed
-
-                    // Sleep for the specified interval
-                    await Task.Delay(pollingInterval, cancellationToken);
-                }
-                catch (Exception ex)
+                    Method = HttpMethod.Get,
+                    RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&format=JSON&symbol={symbol}"),
+                };
+                using (var response = await client.SendAsync(request))
                 {
-                    Logging.WriteLog(ex.Message, Logging.LogType.error);
-                    // Handle the error as needed
+                    response.EnsureSuccessStatusCode();
+                    var responseJsonString = await response.Content.ReadAsStringAsync();
+                    StocksMarketDataApiResponse responseJson = JsonConvert.DeserializeObject<StocksMarketDataApiResponse>(responseJsonString);
+                    returnList = responseJson.Values;
                 }
+                // Or some default value
+                return returnList;
+            }catch(Exception ex)
+            {
+                Logging.WriteLog(ex.Message, Logging.LogType.error);
+                return null;
+                // Handle the error as needed
             }
-
-            return null; // Or some default value
         }
 
     }
