@@ -22,20 +22,24 @@ namespace Kcots.Models
     }
     public class StocksMarketData    {
 
-        [JsonProperty("c")]
-        public decimal CurrentPrice { get; set; }
-        [JsonProperty("d")]
-        public decimal Change { get; set; }
-        [JsonProperty("dp")]
-        public decimal PercentChange { get; set; }
-        [JsonProperty("h")]
-        public decimal DayHighPrice { get; set; }
-        [JsonProperty("l")]
-        public decimal DayLowPrice { get; set; }
-        [JsonProperty("o")]
-        public decimal DayOpenPrice { get; set; }
-        [JsonProperty("pc")]
-        public decimal PrevDayClosePrice { get; set; }
+        [JsonProperty("datetime")]
+        public DateTime DateTime { get; set; }
+
+        [JsonProperty("open")]
+        public decimal Open { get; set; }
+
+        [JsonProperty("high")]
+        public decimal High { get; set; }
+
+        [JsonProperty("low")]
+        public decimal Low { get; set; }
+
+        [JsonProperty("close")]
+        public decimal Close { get; set; }
+
+        [JsonProperty("volume")]
+        public decimal Volume { get; set; }
+
 
         //public decimal High { get; set; }
         //public decimal Low { get; set; }

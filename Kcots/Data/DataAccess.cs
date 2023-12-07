@@ -59,9 +59,11 @@ namespace Kcots.Data
 
         public static async Task<List<StocksMarketData>> GetMarketDataForStock(string symbol)
         {
-            List<StocksMarketData> returnList = new List<StocksMarketData>();
             try
             {
+                Logging.WriteLog($"Getting Data for {symbol}", Logging.LogType.info);
+                List<StocksMarketData> returnList = new List<StocksMarketData>();
+
                 var client = new HttpClient();
                 var request = new HttpRequestMessage
                 {
@@ -75,13 +77,11 @@ namespace Kcots.Data
                     StocksMarketDataApiResponse responseJson = JsonConvert.DeserializeObject<StocksMarketDataApiResponse>(responseJsonString);
                     returnList = responseJson.Values;
                 }
-                // Or some default value
                 return returnList;
             }catch(Exception ex)
             {
                 Logging.WriteLog(ex.Message, Logging.LogType.error);
-                return null;
-                // Handle the error as needed
+                return new List<StocksMarketData>();
             }
         }
 
