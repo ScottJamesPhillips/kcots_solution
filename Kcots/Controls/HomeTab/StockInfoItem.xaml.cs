@@ -45,12 +45,13 @@ namespace Kcots.Controls.HomeTab
                 // Implement your logic here
                 Logging.WriteLog($"Fetching stock info for {selectedStock.Symbol}", Logging.LogType.info);
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                Task<StocksMarketData> pollingTask = Data.DataAccess.GetMarketDataPeriodically(selectedStock.Symbol, TimeSpan.FromMinutes(1), cancellationTokenSource.Token);
+                //Task<StocksMarketData> pollingTask = Data.DataAccess.GetMarketDataPeriodically(selectedStock.Symbol, TimeSpan.FromMinutes(1), cancellationTokenSource.Token);
+                List<StocksMarketData> pollingTask = await Data.DataAccess.GetMarketDataForStock(selectedStock.Symbol);
                 // To stop polling after a certain time or when needed
                 //cancellationTokenSource.Cancel();
 
                 // Wait for the task to complete
-                StocksMarketData result = await pollingTask;
+                //StocksMarketData result = await pollingTask;
 
             }
             catch (Exception ex)
