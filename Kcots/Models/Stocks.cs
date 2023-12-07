@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Kcots.Models
 {
-    class ApiResponse
+    class StocksApiResponse
     {
         [JsonProperty("data")]
         public List<Stocks> Data { get; set; }
@@ -41,6 +41,14 @@ namespace Kcots.Models
 
         [JsonProperty("type")]
         public string Type { get; set; }
+
+        [JsonProperty("interval")]
+        public string Interval { get; set; }
+
+        [JsonProperty("exchange_timezone")]
+        public string ExchangeTimezone { get; set; }
+
+
 
         //public string Symbol { get; set; }
         //public string Name { get; set; }
