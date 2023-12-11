@@ -1,5 +1,7 @@
 ﻿using Kcots.Configuration;
+using Kcots.Data;
 using Kcots.Models;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,7 @@ namespace Kcots.Controls.HomeTab
     public partial class StockInfoItem : UserControl
     {
         Stocks selectedStock = null;
+        ILogger logger = Logging.logger;
         public StockInfoItem()
         {
             InitializeComponent();
@@ -45,8 +48,7 @@ namespace Kcots.Controls.HomeTab
                 // Implement your logic here
                 Logging.WriteLog($"Fetching stock info for {selectedStock.Symbol}", Logging.LogType.info);
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                //Task<StocksMarketData> pollingTask = Data.DataAccess.GetMarketDataPeriodically(selectedStock.Symbol, TimeSpan.FromMinutes(1), cancellationTokenSource.Token);
-                List<StocksMarketData> stockData = await Data.DataAccess.GetMarketDataForStock(selectedStock.Symbol);
+                List<StocksMarketData> stockData = await new DataAccess(logger).GetMarketDataForStock(selectedStock.Symbol);
             }
             catch (Exception ex)
             {

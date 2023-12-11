@@ -18,16 +18,22 @@ using System.Threading.Tasks;
 
 namespace Kcots.Data
 {
-    class DataAccess
+    public class DataAccess
     {
 
-        private static readonly HttpClient client = new HttpClient();
+        public static readonly HttpClient client = new HttpClient();
+        private readonly ILogger logger;
 
-        public static async Task<List<Stocks>> GetStocks()
+        public DataAccess(ILogger logger)
+        {
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        }
+        public async Task<List<Stocks>> GetStocks()
         {
             try
             {
-                Logging.WriteLog("Getting Stocks List", Logging.LogType.info);
+                logger.LogInformation("Getting Stocks List");
+
                 List<Stocks> returnList = new List<Stocks>();
 
                 var client = new HttpClient();
@@ -35,9 +41,8 @@ namespace Kcots.Data
                 {
                     Method = HttpMethod.Get,
                     RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NYSE&mic_code=ARCX"),
-                    //RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NASDAQ"),
-                    //RequestUri = new Uri("https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&type=stock"),    
                 };
+
                 using (var response = await client.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
@@ -50,16 +55,16 @@ namespace Kcots.Data
             }
             catch (Exception ex)
             {
-                Logging.WriteLog(ex.Message, Logging.LogType.error);
+                logger.LogError(ex, "Error getting stocks");
                 return new List<Stocks>();
             }
         }
 
-        public static async Task<List<StocksMarketData>> GetMarketDataForStock(string symbol)
+        public async Task<List<StocksMarketData>> GetMarketDataForStock(string symbol)
         {
             try
             {
-                Logging.WriteLog($"Getting Data for {symbol}", Logging.LogType.info);
+                logger.LogInformation($"Getting Data for {symbol}", Logging.LogType.info);
                 List<StocksMarketData> returnList = new List<StocksMarketData>();
 
                 var client = new HttpClient();
@@ -78,7 +83,7 @@ namespace Kcots.Data
                 return returnList;
             }catch(Exception ex)
             {
-                Logging.WriteLog(ex.Message, Logging.LogType.error);
+                logger.LogError(ex.Message, Logging.LogType.error);
                 return new List<StocksMarketData>();
             }
         }

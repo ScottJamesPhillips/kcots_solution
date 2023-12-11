@@ -20,6 +20,7 @@ using CsvHelper;
 using Kcots.Configuration;
 using Kcots.Data;
 using Kcots.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Kcots.Controls.Tabs
 {
@@ -29,6 +30,7 @@ namespace Kcots.Controls.Tabs
     public partial class HomeTab : UserControl
     {
         List<Stocks> stocks = new List<Stocks>();
+        ILogger logger = Logging.logger;
         public HomeTab()
         {
             InitializeComponent();
@@ -42,7 +44,7 @@ namespace Kcots.Controls.Tabs
                 //Fetching stocks thread
                  await Task.Run(async() =>
                 {
-                    stocks =  await DataAccess.GetStocks();
+                    stocks =  await new DataAccess(logger).GetStocks();
                 });
                 DataContext = stocks;
             }catch(Exception ex)
