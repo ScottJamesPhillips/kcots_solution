@@ -34,8 +34,7 @@ namespace Kcots.Controls.HomeTab
 
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            // Execute your function or code here when DataContext changes
-            // The new DataContext is accessible through e.NewValue
+            //On change datacontext (change stock selected)
             selectedStock = e.NewValue as Stocks;
             if (selectedStock != null)
                 GetCurrentStockInfo();
@@ -45,8 +44,7 @@ namespace Kcots.Controls.HomeTab
         {
             try
             {
-                // Implement your logic here
-                Logging.WriteLog($"Fetching stock info for {selectedStock.Symbol}", Logging.LogType.info);
+                //Logging.WriteLog($"Fetching stock info for {selectedStock.Name}", Logging.LogType.info);
                 CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
                 List<StocksMarketData> stockData = await new DataAccess(logger).GetMarketDataForStock(selectedStock.Symbol);
             }
