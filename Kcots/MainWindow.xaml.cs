@@ -28,7 +28,6 @@ namespace Kcots
     public partial class MainWindow : Window
     {
 
-        private readonly ILogger<MainWindow> logger;
 
         public MainWindow()
         {
@@ -39,12 +38,5 @@ namespace Kcots
         {
             ctrlTabHome.Visibility = Visibility.Collapsed;
         }
-
-
-
-
-
-
-
     }
 }

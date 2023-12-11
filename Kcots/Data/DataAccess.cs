@@ -20,8 +20,6 @@ namespace Kcots.Data
 {
     class DataAccess
     {
-        private static string avApiKey = "4X0XTW8QRBNKICTL";
-        private static string fhApiKey = "cliufv9r01qsgccbkkjgcliufv9r01qsgccbkkk0";
 
         private static readonly HttpClient client = new HttpClient();
 

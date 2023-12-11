@@ -8,6 +8,5 @@ namespace Kcots.Configuration
 {
     class Settings
     {
-        string avApiKey = "4X0XTW8QRBNKICTL";
     }
 }
