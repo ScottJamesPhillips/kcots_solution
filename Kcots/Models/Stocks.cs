@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Kcots.Models
 {
-    class StocksApiResponse
+    public class StocksApiResponse
     {
         [JsonProperty("data")]
         public List<Stocks> Data { get; set; }
@@ -19,7 +19,7 @@ namespace Kcots.Models
         [JsonProperty("status")]
         public string Status { get; set; }
     }
-    class Stocks
+    public class Stocks
     {
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
