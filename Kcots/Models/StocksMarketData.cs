@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kcots.Models
 {
-    class StocksMarketDataApiResponse
+    public class StocksMarketDataApiResponse
     {
         [JsonProperty("meta")]
         public Stocks Meta { get; set; }

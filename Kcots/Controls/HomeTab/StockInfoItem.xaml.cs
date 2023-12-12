@@ -44,9 +44,8 @@ namespace Kcots.Controls.HomeTab
         {
             try
             {
-                //Logging.WriteLog($"Fetching stock info for {selectedStock.Name}", Logging.LogType.info);
-                CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
-                List<StocksMarketData> stockData = await new DataAccess(logger).GetMarketDataForStock(selectedStock.Symbol);
+                StocksMarketDataApiResponse stockDataApiResponse = await new DataAccess(logger).GetMarketDataForStock(selectedStock.Symbol);
+                List<StocksMarketData> stockData = stockDataApiResponse.Values;
             }
             catch (Exception ex)
             {

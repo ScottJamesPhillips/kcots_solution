@@ -60,12 +60,12 @@ namespace Kcots.Data
             }
         }
 
-        public async Task<List<StocksMarketData>> GetMarketDataForStock(string symbol)
+        public async Task<StocksMarketDataApiResponse> GetMarketDataForStock(string symbol)
         {
             try
             {
                 logger.LogInformation($"Getting Data for {symbol}", Logging.LogType.info);
-                List<StocksMarketData> returnList = new List<StocksMarketData>();
+                StocksMarketDataApiResponse returnList = new StocksMarketDataApiResponse();
 
                 var client = new HttpClient();
                 var request = new HttpRequestMessage
@@ -77,16 +77,15 @@ namespace Kcots.Data
                 {
                     response.EnsureSuccessStatusCode();
                     var responseJsonString = await response.Content.ReadAsStringAsync();
-                    StocksMarketDataApiResponse responseJson = JsonConvert.DeserializeObject<StocksMarketDataApiResponse>(responseJsonString);
-                    returnList = responseJson.Values;
+                    returnList = JsonConvert.DeserializeObject<StocksMarketDataApiResponse>(responseJsonString);
                 }
                 return returnList;
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 logger.LogError(ex.Message, Logging.LogType.error);
-                return new List<StocksMarketData>();
+                return new StocksMarketDataApiResponse(); ;
             }
         }
-
     }
 }
