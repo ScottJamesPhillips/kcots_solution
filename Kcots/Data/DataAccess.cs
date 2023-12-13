@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using Kcots.Configuration;
+using Kcots.Interfaces;
 using Kcots.Models;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -18,16 +19,27 @@ using System.Threading.Tasks;
 
 namespace Kcots.Data
 {
-    public class DataAccess
+    public class DataAccess:IDataAccess
     {
 
-        public static readonly HttpClient client = new HttpClient();
-        private readonly ILogger logger;
+        //public static readonly HttpClient client = new HttpClient();
+        //private readonly ILogger logger;
 
-        public DataAccess(ILogger logger)
+        //public DataAccess(ILogger logger)
+        //{
+        //    this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        //}
+
+        private readonly ILoggerWrapper logger;
+        private readonly IHttpClientWrapper httpClient;
+
+        public DataAccess(ILoggerWrapper logger, IHttpClientWrapper httpClient)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
+
+
         public async Task<List<Stocks>> GetStocks()
         {
             try
@@ -64,7 +76,7 @@ namespace Kcots.Data
         {
             try
             {
-                logger.LogInformation($"Getting Data for {symbol}", Logging.LogType.info);
+                logger.LogInformation($"Getting Data for {symbol}");
                 StocksMarketDataApiResponse returnList = new StocksMarketDataApiResponse();
 
                 var client = new HttpClient();
@@ -83,7 +95,7 @@ namespace Kcots.Data
             }
             catch(Exception ex)
             {
-                logger.LogError(ex.Message, Logging.LogType.error);
+                logger.LogError(ex,ex.Message);
                 return new StocksMarketDataApiResponse(); ;
             }
         }

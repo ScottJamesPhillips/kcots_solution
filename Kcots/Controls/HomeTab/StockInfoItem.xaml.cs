@@ -1,5 +1,6 @@
 ﻿using Kcots.Configuration;
 using Kcots.Data;
+using Kcots.Interfaces;
 using Kcots.Models;
 using Microsoft.Extensions.Logging;
 using System;
@@ -26,7 +27,8 @@ namespace Kcots.Controls.HomeTab
     public partial class StockInfoItem : UserControl
     {
         Stocks selectedStock = null;
-        ILogger logger = Logging.logger;
+        ILoggerWrapper logger;
+        IHttpClientWrapper httpWrapper;
         public StockInfoItem()
         {
             InitializeComponent();
@@ -44,12 +46,12 @@ namespace Kcots.Controls.HomeTab
         {
             try
             {
-                StocksMarketDataApiResponse stockDataApiResponse = await new DataAccess(logger).GetMarketDataForStock(selectedStock.Symbol);
+                StocksMarketDataApiResponse stockDataApiResponse = await new DataAccess(logger, httpWrapper).GetMarketDataForStock(selectedStock.Symbol);
                 List<StocksMarketData> stockData = stockDataApiResponse.Values;
             }
             catch (Exception ex)
             {
-                Logging.WriteLog(ex.Message, Logging.LogType.error);
+                logger.LogError(ex, "Shit");
                 throw;
             }
 

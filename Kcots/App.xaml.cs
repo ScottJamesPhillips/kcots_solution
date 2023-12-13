@@ -20,7 +20,7 @@ namespace Kcots
 
         public App()
         {
-            Logging.InitializeLogger();
+            LoggingWrapper.InitializeLogger();
 
             //this.mainWindow = mainWindow;
         }
