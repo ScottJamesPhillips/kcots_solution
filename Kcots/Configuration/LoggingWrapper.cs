@@ -11,16 +11,21 @@ namespace Kcots.Configuration
 {
     public class LoggingWrapper:ILoggerWrapper
     {
-        public enum LogType
-        {
-            warning,
-            info,
-            error
-        }
+        //public enum LogType
+        //{
+        //    warning,
+        //    info,
+        //    error
+        //}
 
 
         public static ILogger<MainWindow> logger;
-        public static void InitializeLogger()
+
+        public LoggingWrapper()
+        {
+        }
+
+        public void InitializeLogger()
         {
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
             {
@@ -51,7 +56,7 @@ namespace Kcots.Configuration
             logger.LogInformation(message);
         }
         public void LogError(Exception ex, string message) {
-            logger.LogError(message);
+            logger.LogError(ex, message);
         }
     }
 }
