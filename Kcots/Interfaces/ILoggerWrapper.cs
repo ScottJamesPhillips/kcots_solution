@@ -8,6 +8,7 @@ namespace Kcots.Interfaces
 {
     public interface ILoggerWrapper
     {
+        void InitializeLogger();
         void LogInformation(string message);
         void LogError(Exception ex, string message);
     }
