@@ -201,7 +201,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Configuration\WebClient.cs" />
+    <Compile Include="Configuration\HttpClientWrapper.cs" />
     <Compile Include="Controls\HomeTab\StockInfoItem.xaml.cs">
       <DependentUpon>StockInfoItem.xaml</DependentUpon>
     </Compile>

@@ -32,7 +32,7 @@ namespace Kcots.Controls.Tabs
     public partial class HomeTab : UserControl
     {
         List<Stocks> stocks = new List<Stocks>();
-        LoggingWrapper logger;
+        LoggingWrapper lw = new LoggingWrapper();
         public HomeTab()
         {
             InitializeComponent();
@@ -42,13 +42,17 @@ namespace Kcots.Controls.Tabs
         {
             try
             {
-                logger.LogInformation("Initialising Program");
+                lw.InitializeLogger();
+
                 var serviceProvider = ConfigureServices();
+
+                lw.LogInformation("Initialising Program");
 
                 // Resolve the IDataAccess interface
                 var dataAccess = serviceProvider.GetService<IDataAccess>();
 
-                var stocks = dataAccess.GetStocks().Result;
+
+                //var stocks = serviceProvider.GetService<IDataAccess>().GetStocks().Result;
 
                 //Fetching stocks thread
                 //await Task.Run(async() =>
@@ -58,7 +62,7 @@ namespace Kcots.Controls.Tabs
                 DataContext = stocks;
             }catch(Exception ex)
             {
-                logger.LogError(ex, "Error getting stocks");
+                lw.LogError(ex, "Error getting stocks");
             }
         }
 

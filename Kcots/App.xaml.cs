@@ -19,8 +19,7 @@ namespace Kcots
         //private readonly MainWindow mainWindow;
 
         public App()
-        {
-            LoggingWrapper.InitializeLogger();
+        {          
 
             //this.mainWindow = mainWindow;
         }
