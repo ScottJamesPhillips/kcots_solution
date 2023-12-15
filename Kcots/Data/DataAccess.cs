@@ -48,14 +48,13 @@ namespace Kcots.Data
 
                 List<Stocks> returnList = new List<Stocks>();
 
-                var client = new HttpClient();
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
                     RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NYSE&mic_code=ARCX"),
                 };
 
-                using (var response = await client.SendAsync(request))
+                using (var response = await httpClient.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
                     var responseJsonString = await response.Content.ReadAsStringAsync();
@@ -79,13 +78,12 @@ namespace Kcots.Data
                 logger.LogInformation($"Getting Data for {symbol}");
                 StocksMarketDataApiResponse returnList = new StocksMarketDataApiResponse();
 
-                var client = new HttpClient();
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
                     RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&format=JSON&symbol={symbol}"),
                 };
-                using (var response = await client.SendAsync(request))
+                using (var response = await httpClient.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
                     var responseJsonString = await response.Content.ReadAsStringAsync();
