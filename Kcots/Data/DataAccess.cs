@@ -22,13 +22,6 @@ namespace Kcots.Data
     public class DataAccess:IDataAccess
     {
 
-        //public static readonly HttpClient client = new HttpClient();
-        //private readonly ILogger logger;
-
-        //public DataAccess(ILogger logger)
-        //{
-        //    this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-        //}
 
         private readonly ILoggerWrapper logger;
         private readonly IHttpClientWrapper httpClient;
