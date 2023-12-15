@@ -32,7 +32,7 @@ namespace Kcots.Controls.Tabs
     public partial class HomeTab : UserControl
     {
         List<Stocks> stocks = new List<Stocks>();
-        LoggingWrapper lw = new LoggingWrapper();
+        LoggingWrapper lw = new LoggingWrapper();      
         public HomeTab()
         {
             InitializeComponent();
@@ -43,22 +43,10 @@ namespace Kcots.Controls.Tabs
             try
             {
                 lw.InitializeLogger();
-
-                var serviceProvider = ConfigureServices();
-
                 lw.LogInformation("Initialising Program");
+                Settings settings = new Settings(lw);
+                var stocks = await Settings.serviceProvider.GetService<IDataAccess>().GetStocks();
 
-                // Resolve the IDataAccess interface
-                var dataAccess = serviceProvider.GetService<IDataAccess>();
-
-
-                //var stocks = serviceProvider.GetService<IDataAccess>().GetStocks().Result;
-
-                //Fetching stocks thread
-                //await Task.Run(async() =>
-                //{
-                //    stocks =  await new dataAccess.GetStocks();
-                //});
                 DataContext = stocks;
             }catch(Exception ex)
             {
@@ -74,18 +62,5 @@ namespace Kcots.Controls.Tabs
             stocksInfoItem.DataContext = (e.AddedItems[0] as Stocks);
 
         }
-
-        static IServiceProvider ConfigureServices()
-        {
-            // Example configuration using Microsoft.Extensions.DependencyInjection
-            var serviceProvider = new ServiceCollection()
-                .AddScoped<IDataAccess, DataAccess>()  // Registering the concrete implementation of IDataAccess
-                .AddScoped<IHttpClientWrapper, HttpClientWrapper>()  // Registering the concrete implementation of IHttpClientWrapper
-                .AddScoped<ILoggerWrapper, LoggingWrapper>()  // Registering the concrete implementation of ILoggerWrapper
-                .BuildServiceProvider();
-
-            return serviceProvider;
-        }
-
     }
 }
