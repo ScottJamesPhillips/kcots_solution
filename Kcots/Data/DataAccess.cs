@@ -68,26 +68,26 @@ namespace Kcots.Data
         {
             try
             {
-                logger.LogInformation($"Getting Data for {symbol}");
-                StocksMarketDataApiResponse returnList = new StocksMarketDataApiResponse();
 
+                logger.LogInformation("Getting Stocks List");
+                StocksMarketDataApiResponse returnObject = new StocksMarketDataApiResponse();
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&format=JSON&symbol={symbol}"),
+                    RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&format=JSON&symbol=OIL"),
                 };
                 using (var response = await httpClient.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
                     var responseJsonString = await response.Content.ReadAsStringAsync();
-                    returnList = JsonConvert.DeserializeObject<StocksMarketDataApiResponse>(responseJsonString);
+                    returnObject = JsonConvert.DeserializeObject<StocksMarketDataApiResponse>(responseJsonString);
                 }
-                return returnList;
+                return returnObject;
             }
             catch(Exception ex)
             {
                 logger.LogError(ex,ex.Message);
-                return new StocksMarketDataApiResponse(); ;
+                return new StocksMarketDataApiResponse();
             }
         }
     }

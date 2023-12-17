@@ -18,6 +18,9 @@ namespace KcotsTesting
     [TestClass]
     public class Tests
     {
+        //Arrange
+        //Act
+        //Assert
         [TestMethod]
         public async Task GetStocks_ShouldNotBeEmpty_WhenHttpResponseIsSuccessful()
         {
@@ -60,41 +63,45 @@ namespace KcotsTesting
             httpClientMock.Verify(client => client.SendAsync(It.IsAny<HttpRequestMessage>()), Times.Once);
         }
 
+        [TestMethod]
+        public async Task GetStockDetail_StocksMarketDataApiValuesShouldNotBeEmpty_WhenHttpResponseSuccessful()
+        {
+            Mock<ILoggerWrapper> loggerMock = new Mock<ILoggerWrapper>();
+            Mock<IHttpClientWrapper> httpClientMock = new Mock<IHttpClientWrapper>();
+            DataAccess dataAccess = new DataAccess(loggerMock.Object, httpClientMock.Object);
+            List<StocksMarketData> expectedValues = new List<StocksMarketData> { new StocksMarketData { } };
+            HttpResponseMessage httpResponse = new HttpResponseMessage(HttpStatusCode.OK);
+            var responseJsonString = JsonConvert.SerializeObject(new StocksMarketDataApiResponse { Values = expectedValues });
+            httpResponse.Content = new StringContent(responseJsonString);
+            httpClientMock.Setup(client => client.SendAsync(It.IsAny<HttpRequestMessage>()))
+                          .ReturnsAsync(httpResponse);
 
 
+            StocksMarketDataApiResponse result = await dataAccess.GetMarketDataForStock("AAPL");
 
+            Assert.IsTrue(result.Values.Count>0);
+            loggerMock.Verify(logger => logger.LogInformation(It.IsAny<string>()), Times.Once);
+            httpClientMock.Verify(client => client.SendAsync(It.IsAny<HttpRequestMessage>()), Times.Once);
+        }
 
-        //[TestMethod]
-        //public async Task GetStocks_ShouldReturnListOfStocks()
-        //{
-        //    // Arrange
-        //    var loggerMock = new Mock<ILogger>();
-        //    var stockService = new DataAccess(loggerMock.Object);
-        //    // Act
-        //    List<Stocks> x = await stockService.GetStocks();
-        //    // Assert
-        //    Assert.IsTrue((x != null) && x.Count > 0);
-        //}
+        [TestMethod]
+        public async Task GetStockDetail_StocksMarketDataApiValuesShouldBeNull_WhenHttpResponseNotSuccessful()
+        {
+            // Arrange
+            Mock<ILoggerWrapper> loggerMock = new Mock<ILoggerWrapper>();
+            Mock<IHttpClientWrapper> httpClientMock = new Mock<IHttpClientWrapper>();
+            DataAccess dataAccess = new DataAccess(loggerMock.Object, httpClientMock.Object);
+            List<StocksMarketData> expectedValues = new List<StocksMarketData> { new StocksMarketData { } };
+            HttpResponseMessage httpResponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
+            httpClientMock.Setup(client => client.SendAsync(It.IsAny<HttpRequestMessage>()))
+                          .ReturnsAsync(httpResponse);
 
-        //[TestMethod]
-        //public async Task GetMarketDataForStock_ShouldReturnNull()
-        //{
-        //    var loggerMock = new Mock<ILogger>();
-        //    var stockService = new DataAccess(loggerMock.Object);
-        //    StocksMarketDataApiResponse x = await stockService.GetMarketDataForStock(null);
-        //    Assert.IsTrue(x.Values==null);
-        //}
+            StocksMarketDataApiResponse result = await dataAccess.GetMarketDataForStock("AAPL");
 
-        //[TestMethod]
-        //public async Task GetMarketDataForStock_ShouldReturnPopulatedListForSymbol()
-        //{
-        //    var loggerMock = new Mock<ILogger>();
-        //    var stockService = new DataAccess(loggerMock.Object);
-        //    StocksMarketDataApiResponse x = await stockService.GetMarketDataForStock("AAPL");
-        //    Assert.IsTrue(x.Values.Count != 0 && x.Meta.Symbol=="AAPL");
-        //}
-
-
+            Assert.IsTrue(result.Values == null);
+            loggerMock.Verify(logger => logger.LogInformation(It.IsAny<string>()), Times.Once);
+            httpClientMock.Verify(client => client.SendAsync(It.IsAny<HttpRequestMessage>()), Times.Once);
+        }
     }
 
 }
