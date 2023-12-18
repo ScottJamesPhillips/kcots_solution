@@ -13,6 +13,6 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="test" Text="{Binding Name}"/>
-        <local:CandleStickChart Grid.Row="1"/>
+        <local:CandleStickChart x:Name="candleStickChart" Grid.Row="1"/>
     </Grid>
 </UserControl>

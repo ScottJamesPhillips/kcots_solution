@@ -41,7 +41,10 @@ namespace Kcots.Controls.HomeTab
             //On change datacontext (change stock selected)
             selectedStock = e.NewValue as Stocks;
             if (selectedStock != null)
+            {
                 GetCurrentStockInfo();
+                candleStickChart.DataContext = stockData;
+            }
         }
 
         private async void GetCurrentStockInfo()
