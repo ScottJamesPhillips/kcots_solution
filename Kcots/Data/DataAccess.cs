@@ -74,7 +74,7 @@ namespace Kcots.Data
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1min&format=JSON&symbol=OIL"),
+                    RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1day&format=JSON&symbol={symbol}"),
                 };
                 using (var response = await httpClient.SendAsync(request))
                 {
