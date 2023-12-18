@@ -30,6 +30,7 @@ namespace Kcots.Controls.HomeTab
         Stocks selectedStock = null;
         ILoggerWrapper logger;
         IHttpClientWrapper httpWrapper;
+        List<StocksMarketData> stockData = new List<StocksMarketData>();
         public StockInfoItem()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace Kcots.Controls.HomeTab
             {
                 //StocksMarketDataApiResponse stockDataApiResponse = await new DataAccess(logger, httpWrapper).GetMarketDataForStock(selectedStock.Symbol);
                 var stockDataApiResponse = await Settings.serviceProvider.GetService<IDataAccess>().GetMarketDataForStock(selectedStock.Symbol);
-                List<StocksMarketData> stockData = stockDataApiResponse.Values;
+                stockData = stockDataApiResponse.Values;
             }
             catch (Exception ex)
             {
