@@ -9,40 +9,30 @@
              d:DesignHeight="450" d:DesignWidth="800"
              DataContextChanged="OnDataContextChanged">
 
-    <!--Setting DataContext-->
-    <!--<UserControl.DataContext>-->
-        <!--<local:CandleStickChart/>-->
-    <!--</UserControl.DataContext>-->
-
-    <Grid Background="Blue">
-
-        <!--<chart:CandleSeries Name="seriesx" ItemsSource="{Binding StockPriceDetails}" XBindingPath="Date" High="High" Open="Open" Close="Close" Low="Low" Interior="#4A4A4A"/>-->
-
+    <Grid>
         <StackPanel>
-            <chart:SfChart Height="300" Width="500">
-                <!--Initialize the horizontal axis for the WPF Chart-->
+            <chart:SfChart Name="candleStickChart" Height="300" Width="500">
+                <!--horizontal axis-->
                 <chart:SfChart.PrimaryAxis>
                     <chart:DateTimeAxis  LabelFormat="MMM dd"/>
                 </chart:SfChart.PrimaryAxis>
 
-                <!--Initialize the vertical axis for the WPF Chart-->
+                <!--vertical axis -->
                 <chart:SfChart.SecondaryAxis>
                     <chart:NumericalAxis/>
                 </chart:SfChart.SecondaryAxis>
 
                 <!--Adding Candle Series to the WPF Chart-->
                 <chart:CandleSeries
-                Close="Close"
-                ComparisonMode="Low"
-                High="High"
-                ItemsSource="{Binding StockPriceDetails}"
-                Low="Low"
-                Open="Open"
-                XBindingPath="Date" 
-                    />
+                    Close="Close"
+                    ComparisonMode="Low"
+                    High="High"
+                    ItemsSource="{Binding}"
+                    Low="Low"
+                    Open="Open"
+                    XBindingPath="DateTime" 
+                />
             </chart:SfChart>
         </StackPanel>
-
     </Grid>
-
 </UserControl>

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Kcots.Controls.HomeTab"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             DataContextChanged="OnDataContextChanged" Background="Red">
+             DataContextChanged="OnDataContextChanged">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
