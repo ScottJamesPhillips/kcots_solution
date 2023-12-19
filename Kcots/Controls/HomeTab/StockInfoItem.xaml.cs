@@ -28,14 +28,12 @@ namespace Kcots.Controls.HomeTab
     public partial class StockInfoItem : UserControl
     {
         Stocks selectedStock = null;
-        ILoggerWrapper logger;
-        IHttpClientWrapper httpWrapper;
+        LoggingWrapper logger = new LoggingWrapper();
         List<StocksMarketData> stockData = new List<StocksMarketData>();
         public StockInfoItem()
         {
             InitializeComponent();
         }
-
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             //On change datacontext (change stock selected)
@@ -57,7 +55,7 @@ namespace Kcots.Controls.HomeTab
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Shit");
+                logger.LogError(ex, "Error getting current stock info");
                 throw;
             }
 
