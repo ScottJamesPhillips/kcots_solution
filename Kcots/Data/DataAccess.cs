@@ -21,32 +21,26 @@ namespace Kcots.Data
 {
     public class DataAccess:IDataAccess
     {
-
-
-        private readonly ILoggerWrapper logger;
+        private readonly ILoggingWrapper logger;
         private readonly IHttpClientWrapper httpClient;
 
-        public DataAccess(ILoggerWrapper logger, IHttpClientWrapper httpClient)
+        public DataAccess(ILoggingWrapper logger, IHttpClientWrapper httpClient)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             this.httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
-
 
         public async Task<List<Stocks>> GetStocks()
         {
             try
             {
                 logger.LogInformation("Getting Stocks List");
-
                 List<Stocks> returnList = new List<Stocks>();
-
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
                     RequestUri = new Uri("https://api.twelvedata.com/stocks?exchange=NYSE&mic_code=ARCX"),
                 };
-
                 using (var response = await httpClient.SendAsync(request))
                 {
                     response.EnsureSuccessStatusCode();
@@ -54,7 +48,6 @@ namespace Kcots.Data
                     var responseJson = JsonConvert.DeserializeObject<StocksApiResponse>(responseJsonString);
                     returnList = responseJson.Data;
                 }
-
                 return returnList;
             }
             catch (Exception ex)
@@ -68,7 +61,6 @@ namespace Kcots.Data
         {
             try
             {
-
                 logger.LogInformation("Getting Stocks List");
                 StocksMarketDataApiResponse returnObject = new StocksMarketDataApiResponse();
                 var request = new HttpRequestMessage

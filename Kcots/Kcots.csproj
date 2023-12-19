@@ -236,7 +236,7 @@
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Interfaces\IDataAccess.cs" />
     <Compile Include="Interfaces\IHttpClientWrapper.cs" />
-    <Compile Include="Interfaces\ILoggerWrapper.cs" />
+    <Compile Include="Interfaces\ILoggingWrapper.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

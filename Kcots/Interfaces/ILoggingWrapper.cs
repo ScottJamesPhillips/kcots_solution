@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kcots.Interfaces
 {
-    public interface ILoggerWrapper
+    public interface ILoggingWrapper
     {
         void InitializeLogger();
         void LogInformation(string message);

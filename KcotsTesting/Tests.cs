@@ -12,6 +12,7 @@ using Kcots.Interfaces;
 using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
+using Kcots.Controls.HomeTab;
 
 namespace KcotsTesting
 {
@@ -25,7 +26,7 @@ namespace KcotsTesting
         public async Task GetStocks_ShouldNotBeEmpty_WhenHttpResponseIsSuccessful()
         {
             // Arrange
-            Mock<ILoggerWrapper> loggerMock = new Mock<ILoggerWrapper>();
+            Mock<ILoggingWrapper> loggerMock = new Mock<ILoggingWrapper>();
             Mock<IHttpClientWrapper> httpClientMock = new Mock<IHttpClientWrapper>();
             DataAccess dataAccess = new DataAccess(loggerMock.Object, httpClientMock.Object);
             List<Stocks> expectedStocks = new List<Stocks> {new Stocks {}};
@@ -47,7 +48,7 @@ namespace KcotsTesting
         [TestMethod]
         public async Task GetStocks_ShouldReturnEmptyList_WhenHttpResponseIsNotSuccessful()
         {
-            Mock<ILoggerWrapper> loggerMock = new Mock<ILoggerWrapper>();
+            Mock<ILoggingWrapper> loggerMock = new Mock<ILoggingWrapper>();
             Mock<IHttpClientWrapper> httpClientMock = new Mock<IHttpClientWrapper>();
             DataAccess dataAccess = new DataAccess(loggerMock.Object, httpClientMock.Object);
 
@@ -66,7 +67,7 @@ namespace KcotsTesting
         [TestMethod]
         public async Task GetStockDetail_StocksMarketDataApiValuesShouldNotBeEmpty_WhenHttpResponseSuccessful()
         {
-            Mock<ILoggerWrapper> loggerMock = new Mock<ILoggerWrapper>();
+            Mock<ILoggingWrapper> loggerMock = new Mock<ILoggingWrapper>();
             Mock<IHttpClientWrapper> httpClientMock = new Mock<IHttpClientWrapper>();
             DataAccess dataAccess = new DataAccess(loggerMock.Object, httpClientMock.Object);
             List<StocksMarketData> expectedValues = new List<StocksMarketData> { new StocksMarketData { } };
@@ -88,7 +89,7 @@ namespace KcotsTesting
         public async Task GetStockDetail_StocksMarketDataApiValuesShouldBeNull_WhenHttpResponseNotSuccessful()
         {
             // Arrange
-            Mock<ILoggerWrapper> loggerMock = new Mock<ILoggerWrapper>();
+            Mock<ILoggingWrapper> loggerMock = new Mock<ILoggingWrapper>();
             Mock<IHttpClientWrapper> httpClientMock = new Mock<IHttpClientWrapper>();
             DataAccess dataAccess = new DataAccess(loggerMock.Object, httpClientMock.Object);
             List<StocksMarketData> expectedValues = new List<StocksMarketData> { new StocksMarketData { } };

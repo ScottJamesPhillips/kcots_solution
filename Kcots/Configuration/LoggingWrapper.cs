@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Kcots.Configuration
 {
-    public class LoggingWrapper:ILoggerWrapper
+    public class LoggingWrapper:ILoggingWrapper
     {
         public static ILogger<MainWindow> logger;
 

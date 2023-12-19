@@ -11,10 +11,10 @@ namespace Kcots.Configuration
 {
     public class Settings
     {
-        private readonly ILoggerWrapper logger;
+        private readonly ILoggingWrapper logger;
         public static IServiceProvider serviceProvider;
 
-        public Settings(ILoggerWrapper logger)
+        public Settings(ILoggingWrapper logger)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
             serviceProvider = ConfigureServices();
@@ -30,7 +30,7 @@ namespace Kcots.Configuration
                 var serviceProvider = new ServiceCollection()
                     .AddScoped<IDataAccess, DataAccess>()  // Registering the concrete implementation of IDataAccess
                     .AddScoped<IHttpClientWrapper, HttpClientWrapper>()  // Registering the concrete implementation of IHttpClientWrapper
-                    .AddScoped<ILoggerWrapper, LoggingWrapper>()  // Registering the concrete implementation of ILoggerWrapper
+                    .AddScoped<ILoggingWrapper, LoggingWrapper>()  // Registering the concrete implementation of ILoggerWrapper
                     .AddHttpClient()  // Registering HttpClient as a transient service
                     .BuildServiceProvider();
 
