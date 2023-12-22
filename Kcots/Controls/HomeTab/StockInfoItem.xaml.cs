@@ -27,9 +27,12 @@ namespace Kcots.Controls.HomeTab
     /// </summary>
     public partial class StockInfoItem : UserControl
     {
-        Stocks selectedStock = null;
-        LoggingWrapper logger = new LoggingWrapper();
-        List<StocksMarketData> stockData = new List<StocksMarketData>();
+        public Stocks selectedStock = null;
+        public LoggingWrapper lw = new LoggingWrapper();
+        public List<StocksMarketData> stockData = new List<StocksMarketData>();
+        public ILoggingWrapper logger;
+        public IHttpClientWrapper httpClient;
+        public IDataAccess dataAccess;
         public StockInfoItem()
         {
             InitializeComponent();
@@ -45,7 +48,7 @@ namespace Kcots.Controls.HomeTab
             }
         }
 
-        private async void GetCurrentStockInfo()
+        public async void GetCurrentStockInfo()
         {
             try
             {
@@ -55,10 +58,9 @@ namespace Kcots.Controls.HomeTab
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error getting current stock info");
-                throw;
+                lw.LogError(ex, "Error getting current stock info");
+                //throw;
             }
-
         }
     }
 }
