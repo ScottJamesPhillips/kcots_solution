@@ -56,12 +56,21 @@ namespace Kcots.Controls.HomeTab
                 };
                 // Add the series to the chart
                 candleStickChart.Series.Add(series);
+                ChartZoomPanBehavior zooming = new ChartZoomPanBehavior();
+                candleStickChart.Behaviors.Add(zooming);
                 //series.ComparisonMode = Syncfusion.UI.Xaml.Charts.FinancialPrice.Open;
             }
             catch(Exception ex)
             {
 
             }
+        }
+
+        private void ChartContainer_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // Update chart size when window size changed
+            candleStickChart.Width = e.NewSize.Width;
+            candleStickChart.Height = e.NewSize.Height;
         }
     }
 }

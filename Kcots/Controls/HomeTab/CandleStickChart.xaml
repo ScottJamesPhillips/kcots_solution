@@ -6,15 +6,22 @@
              xmlns:local="clr-namespace:Kcots.Controls.HomeTab"
              xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="800" d:DesignWidth="800"
              DataContextChanged="OnDataContextChanged">
 
-    <Grid>
+    <Grid SizeChanged="ChartContainer_SizeChanged">
         <StackPanel>
-            <chart:SfChart Name="candleStickChart" Height="300" Width="500">
+            <chart:SfChart Name="candleStickChart" Height="500">
+
+                <chart:SfChart.Behaviors>
+                    <chart:ChartZoomPanBehavior ZoomRelativeToCursor="True" EnablePanning="True" ResetOnDoubleTap="True"/>
+                </chart:SfChart.Behaviors>
+
                 <!--horizontal axis-->
                 <chart:SfChart.PrimaryAxis>
-                    <chart:DateTimeAxis  LabelFormat="MMM dd"/>
+                    <chart:DateTimeAxis 
+                    ShowGridLines="False"
+                    ZoomFactor="0.3" ZoomPosition="0.1" LabelFormat="MMM dd"/>
                 </chart:SfChart.PrimaryAxis>
 
                 <!--vertical axis -->
