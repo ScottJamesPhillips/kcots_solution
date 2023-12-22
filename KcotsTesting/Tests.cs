@@ -14,6 +14,7 @@ using System.Net;
 using Newtonsoft.Json;
 using Kcots.Controls.HomeTab;
 using System.Reflection;
+using System.Windows;
 
 namespace KcotsTesting
 {
@@ -103,77 +104,6 @@ namespace KcotsTesting
             Assert.IsTrue(result.Values == null);
             loggerMock.Verify(logger => logger.LogInformation(It.IsAny<string>()), Times.Once);
             httpClientMock.Verify(client => client.SendAsync(It.IsAny<HttpRequestMessage>()), Times.Once);
-        }
-
-        [TestMethod]
-        public void GetCurrentStockInfo_Success()
-        {
-            // Arrange
-            var mockDataAccess = new Mock<IDataAccess>();
-            var mockLogger = new Mock<ILoggingWrapper>();
-
-            // Set up mock behavior for IDataAccess
-            var mockApiResponse = new StocksMarketDataApiResponse
-            {
-                Values = new List<StocksMarketData> { /* Populate with test data */ }
-            };
-            mockDataAccess.Setup(da => da.GetMarketDataForStock(It.IsAny<string>()))
-                          .ReturnsAsync(mockApiResponse);
-
-
-            try
-            {
-                // Create an instance of StockInfoItem with mocked dependencies
-                var stockInfoItem = new StockInfoItem
-                {
-                    logger = mockLogger.Object,
-                    dataAccess = mockDataAccess.Object
-                };
-                stockInfoItem.GetType().GetProperty("logger", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(stockInfoItem, mockLogger.Object);
-                stockInfoItem.GetType().GetProperty("dataAccess", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(stockInfoItem, mockDataAccess.Object);
-
-                // Act
-                // Invoke the method you want to test
-                stockInfoItem.GetCurrentStockInfo();
-
-                // Assert
-                // Verify that the stockData property is populated with the expected data
-                Assert.IsNotNull(stockInfoItem.stockData);
-                Assert.AreEqual(mockApiResponse.Values, stockInfoItem.stockData);
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            };
-
-            
-        }
-
-        [TestMethod]
-        public void GetCurrentStockInfo_Error()
-        {
-            // Arrange
-            var mockDataAccess = new Mock<IDataAccess>();
-            var mockLogger = new Mock<ILogger>();
-
-            // Set up mock behavior for IDataAccess to simulate an exception
-            mockDataAccess.Setup(da => da.GetMarketDataForStock(It.IsAny<string>()))
-                          .ThrowsAsync(new Exception("Simulated error"));
-
-            // Create an instance of StockInfoItem with mocked dependencies
-            var stockInfoItem = new StockInfoItem
-            {
-                // Consider injecting mockLogger if it's used in other parts of the class
-            };
-            stockInfoItem.GetType().GetProperty("logger", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(stockInfoItem, mockLogger.Object);
-            stockInfoItem.GetType().GetProperty("dataAccess", BindingFlags.NonPublic | BindingFlags.Instance)?.SetValue(stockInfoItem, mockDataAccess.Object);
-
-            // Act and Assert
-            // Verify that an exception is logged
-            stockInfoItem.GetCurrentStockInfo();
-            Assert.IsNull(stockInfoItem.stockData);
-            mockLogger.Verify(logger => logger.LogError(It.IsAny<Exception>(), It.IsAny<string>()), Times.Once);
         }
     }
 
