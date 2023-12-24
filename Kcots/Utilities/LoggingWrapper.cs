@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kcots.Configuration
+namespace Kcots.Utilities
 {
     public class LoggingWrapper:ILoggingWrapper
     {

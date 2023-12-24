@@ -1,5 +1,4 @@
-﻿using Kcots.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Serilog;
 using System;
 using System.Collections.Generic;
