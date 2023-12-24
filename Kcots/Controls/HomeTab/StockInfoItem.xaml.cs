@@ -1,5 +1,4 @@
-﻿using Kcots.Configuration;
-using Kcots.Data;
+﻿using Kcots.Data;
 using Kcots.Interfaces;
 using Kcots.Models;
 using Microsoft.Extensions.Logging;
@@ -19,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Extensions.DependencyInjection;
+using Kcots.Utilities;
 
 namespace Kcots.Controls.HomeTab
 {
