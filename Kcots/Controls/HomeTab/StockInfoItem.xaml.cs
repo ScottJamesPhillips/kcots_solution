@@ -36,6 +36,12 @@ namespace Kcots.Controls.HomeTab
         public StockInfoItem()
         {
             InitializeComponent();
+            Init();
+        }
+        public void Init()
+        {
+            Utilities.Data.LoadGraphicIPMappings();
+            cboBoxAPIInterval.ItemsSource = Utilities.Data.APIIntervalOptions;
         }
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {

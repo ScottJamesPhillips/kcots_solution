@@ -11,8 +11,26 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock x:Name="test" Text="{Binding Name}"/>
-        <local:CandleStickChart x:Name="candleStickChart" Grid.Row="1"/>
+        <local:CandleStickChart x:Name="candleStickChart" Grid.Row="1" Grid.RowSpan="2" Padding="10"/>
+        <TextBlock Grid.Row="3">Grid Display Options to go here</TextBlock>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5" Name="cboBoxAPIInterval"></ComboBox>
+        </Grid>
     </Grid>
 </UserControl>
