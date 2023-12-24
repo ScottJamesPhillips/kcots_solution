@@ -17,10 +17,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CsvHelper;
-using Kcots.Configuration;
 using Kcots.Data;
 using Kcots.Interfaces;
 using Kcots.Models;
+using Kcots.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -46,7 +46,6 @@ namespace Kcots.Controls.Tabs
                 lw.LogInformation("Initialising Program");
                 Settings settings = new Settings(lw);
                 var stocks = await Settings.serviceProvider.GetService<IDataAccess>().GetStocks();
-
                 DataContext = stocks;
             }catch(Exception ex)
             {
