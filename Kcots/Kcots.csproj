@@ -194,7 +194,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Configuration\LoggingWrapper.cs" />
+    <Compile Include="Utilities\Data.cs" />
+    <Compile Include="Utilities\LoggingWrapper.cs" />
     <Page Include="Controls\HomeTab\CandleStickChart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -219,8 +220,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\Settings.cs" />
-    <Compile Include="Configuration\HttpClientWrapper.cs" />
+    <Compile Include="Utilities\Settings.cs" />
+    <Compile Include="Utilities\HttpClientWrapper.cs" />
     <Compile Include="Controls\HomeTab\CandleStickChart.xaml.cs">
       <DependentUpon>CandleStickChart.xaml</DependentUpon>
     </Compile>
@@ -272,5 +273,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Content Include="Configuration\APIIntervalChoices.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
