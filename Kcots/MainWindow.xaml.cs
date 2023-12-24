@@ -1,5 +1,4 @@
-﻿using Kcots.Configuration;
-using Kcots.Models;
+﻿using Kcots.Models;
 using Microsoft.Extensions.Logging;
 using ServiceStack;
 using ServiceStack.Text;
