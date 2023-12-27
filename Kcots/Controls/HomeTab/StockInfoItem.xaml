@@ -16,9 +16,10 @@
         </Grid.RowDefinitions>
         <TextBlock x:Name="test" Text="{Binding Name}"/>
         <local:CandleStickChart x:Name="candleStickChart" Grid.Row="1" Grid.RowSpan="2" Padding="10"/>
-        <TextBlock Grid.Row="3">Grid Display Options to go here</TextBlock>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
@@ -30,7 +31,8 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5" Name="cboBoxAPIInterval"></ComboBox>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">API Interval:</TextBlock>
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="5" Name="cboBoxAPIInterval" SelectionChanged="CboBoxAPIInterval_SelectionChanged" SelectedValuePath="Key" DisplayMemberPath="Value"></ComboBox>
         </Grid>
     </Grid>
 </UserControl>

@@ -43,14 +43,46 @@ namespace Kcots.Controls.HomeTab
             Utilities.Data.LoadGraphicIPMappings();
             cboBoxAPIInterval.ItemsSource = Utilities.Data.APIIntervalOptions;
         }
+
         private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            //On change datacontext (change stock selected)
-            selectedStock = e.NewValue as Stocks;
-            if (selectedStock != null)
+            try
+            {
+                //On change datacontext (change stock selected)
+                selectedStock = e.NewValue as Stocks;
+                if (selectedStock != null)
+                {
+                    UpdateChartView();
+                }
+            }
+            catch (Exception ex)
+            {}
+        }
+
+        private void CboBoxAPIInterval_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (selectedStock != null)
+                {
+                    UpdateChartView();
+                }
+            }catch(Exception ex)
+            {
+                lw.LogError(ex, "Error getting current stock info, no stock selected");
+            }
+        }
+
+        public void UpdateChartView()
+        {
+            try
             {
                 GetCurrentStockInfo();
                 candleStickChart.DataContext = stockData;
+            }
+            catch (Exception ex)
+            {
+                lw.LogError(ex, "Error updateing chart");
             }
         }
 
@@ -59,7 +91,7 @@ namespace Kcots.Controls.HomeTab
             try
             {
                 //StocksMarketDataApiResponse stockDataApiResponse = await new DataAccess(logger, httpWrapper).GetMarketDataForStock(selectedStock.Symbol);
-                var stockDataApiResponse = await Settings.serviceProvider.GetService<IDataAccess>().GetMarketDataForStock(selectedStock.Symbol);
+                var stockDataApiResponse = await Settings.serviceProvider.GetService<IDataAccess>().GetMarketDataForStock(selectedStock.Symbol, cboBoxAPIInterval.SelectedValue.ToString());
                 stockData = stockDataApiResponse.Values;
             }
             catch (Exception ex)
