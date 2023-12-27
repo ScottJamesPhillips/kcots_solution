@@ -56,7 +56,7 @@ namespace Kcots.Data
             }
         }
 
-        public async Task<StocksMarketDataApiResponse> GetMarketDataForStock(string symbol)
+        public async Task<StocksMarketDataApiResponse> GetMarketDataForStock(string symbol, string interval = "1day")
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Kcots.Data
                 var request = new HttpRequestMessage
                 {
                     Method = HttpMethod.Get,
-                    RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval=1day&format=JSON&symbol={symbol}"),
+                    RequestUri = new Uri($"https://api.twelvedata.com/time_series?apikey=d6db85bcf8dc434ea2adf66e8dda1192&interval={interval}&format=JSON&symbol={symbol}"),
                 };
                 using (var response = await httpClient.SendAsync(request))
                 {

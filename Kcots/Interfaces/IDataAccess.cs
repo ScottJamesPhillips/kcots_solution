@@ -10,6 +10,6 @@ namespace Kcots.Interfaces
     public interface IDataAccess
     {
         Task<List<Stocks>> GetStocks();
-        Task<StocksMarketDataApiResponse> GetMarketDataForStock(string symbol);
+        Task<StocksMarketDataApiResponse> GetMarketDataForStock(string symbol, string interval="1day");
     }
 }
